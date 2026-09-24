@@ -68,3 +68,24 @@ def state_str(state):
 
     return f"({str(m_left)},{str(c_left)},{str(m_right)},{str(c_right)},{boat})"
 
+class Node:
+    __parts__=("state","parten","action","cost")
+
+    def __init__(self,state,parent=None,action=None,cost=0):
+        self.state=state
+        self.parent=parent
+        self.action=action
+        self.cost=cost
+
+def build_path(node):
+    chain = []
+    while node is not None:     #append from end, then reverse to show start to end
+         chain.append(node)
+         node=node.parent
+    chain.reverse()
+
+    parts = [state_str(chain[0].state)]           #Start - > action-state -> action-state
+    for n in chain[1:]:
+        parts.append(action_string(n.action))    
+        parts.append(state_str(n.state))
+    return " ".join(parts)
