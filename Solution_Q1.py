@@ -1,5 +1,3 @@
-
-
 def parse_input(path):
     file = open(path,"r")
     line = file.readline().strip()
