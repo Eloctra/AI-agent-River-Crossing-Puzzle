@@ -31,7 +31,7 @@ def goal(state):
 
 LOADS = [(1,0),(2,0),(0,1),(0,2),(1,1)]
 
-def successor_state(state):
+def successor_state(state,cost=lambda m,c,direction:1):
     m_left,c_left,m_right,c_right,boat=state
     successor_states=[]
 
@@ -41,13 +41,13 @@ def successor_state(state):
                 successor=(m_left-m, c_left-c, m_right+m, c_right+c,"R")
                 if is_valid(successor):
                     action=(m,c,"L->R")
-                    successor_states.append((action,successor,1))
+                    successor_states.append((action,successor,cost(m,c,"L->R")))
         if boat == "R":
                     if m_right>=m and c_right>= c:
                         successor=(m_left+m, c_left+c, m_right-m, c_right-c,"L")
                         if is_valid(successor):
                             action=(m,c,"R->L")
-                            successor_states.append((action,successor,1))
+                            successor_states.append((action,successor,cost(m,c,"R->L")))
     return successor_states
 
 # Strings : -
